@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SpaceShoot
+{
+    public class Player
+    {
+        public double X { get; private set; }
+        public double Y { get; private set; }
+        public double Size { get; private set; } = 60;
+        public BoxView Visual { get; private set; }
+
+        public double Rotation
+        {
+            get
+            {
+                return Visual.Rotation;
+            }
+        }
+
+        public Player(double x, double y)
+        {
+            X = x;
+            Y = y;
+
+            Visual = new BoxView
+            {
+                Color = Colors.Cyan,
+                WidthRequest = Size,
+                HeightRequest = Size,
+                CornerRadius = 5
+            };
+        }
+
+        // Moves the player to a new position instantly.
+        // In a more advanced version, this could animate the movement.
+        public void MoveTo(double targetX, double targetY)
+        {
+            X = targetX;
+            Y = targetY;
+        }
+
+        // Rotates the player to a specified angle in degrees.
+        public void RotatePlayer(double angle)
+        {
+            Visual.Rotation = angle;
+        }
+    }
+}
