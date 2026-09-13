@@ -17,6 +17,8 @@ namespace SpaceShoot
         private double velocityY;
         private double speed = 2.0;
         private Random random = new Random();
+        private DateTime lastDirectionChange;
+        private int directionChangeInterval = 2000; // Change direction every 2 seconds
 
         public Enemy(double x, double y)
         {
@@ -38,6 +40,7 @@ namespace SpaceShoot
             X += velocityX;
             Y += velocityY;
 
+            // Bounce off walls
             if (X < Size / 2 || X > screenWidth - Size / 2)
             {
                 velocityX = -velocityX;
@@ -48,6 +51,13 @@ namespace SpaceShoot
             {
                 velocityY = -velocityY;
                 Y = Math.Clamp(Y, Size / 2, screenHeight - Size / 2);
+            }
+
+            // Periodically change direction for more interesting movement
+            if ((DateTime.Now - lastDirectionChange).TotalMilliseconds > directionChangeInterval)
+            {
+                ChangeDirection();
+                lastDirectionChange = DateTime.Now;
             }
         }
 
