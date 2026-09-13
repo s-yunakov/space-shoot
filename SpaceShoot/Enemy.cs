@@ -16,6 +16,7 @@ namespace SpaceShoot
         private double velocityX;
         private double velocityY;
         private double speed = 2.0;
+        private Random random = new Random();
 
         public Enemy(double x, double y)
         {
@@ -35,6 +36,14 @@ namespace SpaceShoot
         {
             X += velocityX;
             Y += velocityY;
+        }
+
+        private void ChangeDirection()
+        {
+            double angle = random.NextDouble() * 2 * Math.PI;
+
+            velocityX = Math.Cos(angle) * speed;
+            velocityY = Math.Sin(angle) * speed;
         }
     }
 }
