@@ -34,8 +34,21 @@ namespace SpaceShoot
 
         public void Update(double screenWidth, double screenHeight)
         {
+            // Move in current direction
             X += velocityX;
             Y += velocityY;
+
+            if (X < Size / 2 || X > screenWidth - Size / 2)
+            {
+                velocityX = -velocityX;
+                X = Math.Clamp(X, Size / 2, screenWidth - Size / 2);
+            }
+
+            if (Y < Size / 2 || Y > screenHeight - Size / 2)
+            {
+                velocityY = -velocityY;
+                Y = Math.Clamp(Y, Size / 2, screenHeight - Size / 2);
+            }
         }
 
         private void ChangeDirection()
