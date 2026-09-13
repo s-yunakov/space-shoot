@@ -61,12 +61,31 @@ namespace SpaceShoot
             }
         }
 
+        // Changes the enemy's direction to a new random direction.
         private void ChangeDirection()
         {
+            // Generate random angle
             double angle = random.NextDouble() * 2 * Math.PI;
 
+            // Convert to velocity components
             velocityX = Math.Cos(angle) * speed;
             velocityY = Math.Sin(angle) * speed;
+        }
+
+        // Alternative update method: Makes the enemy move towards a target (like the player).
+        // Maybe different types of enemies could use this behaviour.
+        // This is not currently used but demonstrates how to create homing enemies.
+        public void MoveTowards(double targetX, double targetY)
+        {
+            double dx = targetX - X;
+            double dy = targetY - Y;
+            double distance = Math.Sqrt(dx * dx + dy * dy);
+
+            if (distance > 0)
+            {
+                velocityX = (dx / distance) * speed;
+                velocityY = (dy / distance) * speed;
+            }
         }
     }
 }
