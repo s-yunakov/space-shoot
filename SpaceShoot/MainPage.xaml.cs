@@ -50,5 +50,27 @@
             gameTimer.Tick += OnGameTick;
             gameTimer.IsRepeating = true;
         }
+
+        private void OnGameTick(object sender, EventArgs e)
+        {
+            if (!isGameRunning)
+                return;
+
+            // Update all bullets
+
+            // Update all enemies
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                enemies[i].Update(canvasWidth, canvasHeight);
+
+                AbsoluteLayout.SetLayoutBounds(
+                    enemies[i].Visual,
+                    new Rect(
+                        enemies[i].X - enemies[i].Size / 2,
+                        enemies[i].Y - enemies[i].Size / 2,
+                        enemies[i].Size,
+                        enemies[i].Size));
+            }
+        }
     }
 }
