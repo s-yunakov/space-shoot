@@ -27,5 +27,28 @@
                 OnPropertyChanged();
             }
         }
+
+        public MainPage()
+        {
+            InitializeComponent();
+            InitialiseTimersandGestures();
+            BindingContext = this;
+        }
+
+        public void InitialiseTimersandGestures()
+        {
+            // Add pan gesture for continuous movement
+            var panGesture = new PanGestureRecognizer();
+            panGesture.PanUpdated += OnPanUpdated;
+            GameCanvas.GestureRecognizers.Add(panGesture);
+
+            // Keep tap gesture for shooting
+
+            // Setup game loop timer using DispatcherTimer (60 FPS)
+            gameTimer = Dispatcher.CreateTimer();
+            gameTimer.Interval = TimeSpan.FromMilliseconds(16);
+            gameTimer.Tick += OnGameTick;
+            gameTimer.IsRepeating = true;
+        }
     }
 }
