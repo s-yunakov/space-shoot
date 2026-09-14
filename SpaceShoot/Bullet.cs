@@ -12,6 +12,10 @@ namespace SpaceShoot
         public double Y { get; private set; }
         public BoxView Visual { get; private set; }
 
+        private double velocityX;
+        private double velocityY;
+        private double speed = 8.0;
+
         public Bullet(double x, double y, double directionX, double directionY)
         {
             X = x;
@@ -24,6 +28,12 @@ namespace SpaceShoot
                 Color = Colors.Yellow,
                 CornerRadius = 3
             };
+        }
+
+        // Checks if the bullet is still within the game boundaries.
+        public bool IsOnScreen(double screenWidth, double screenHeight)
+        {
+            return X >= 0 && X <= screenWidth && Y >= 0 && Y <= screenHeight;
         }
     }
 }
