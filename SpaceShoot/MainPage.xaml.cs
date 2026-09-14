@@ -2,23 +2,30 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private Player player;
+        private List<Enemy> enemies = new();
+        private List<Bullet> bullets = new();
+        private IDispatcherTimer gameTimer;
+        private IDispatcherTimer enemySpawnTimer;
 
-        public MainPage()
+        private int score = 0;
+        private int lives = 3;
+        private bool isGameRunning = false;
+
+        private const int MaxBullets = 5;
+        private double canvasWidth;
+        private double canvasHeight;
+        private double lastPanX = 0;
+        private double lastPanY = 0;
+
+        public int Score
         {
-            InitializeComponent();
-        }
-
-        private void OnCounterClicked(object? sender, EventArgs e)
-        {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            get { return score; }
+            set
+            {
+                score = value;
+                OnPropertyChanged();
+            }
         }
     }
 }
