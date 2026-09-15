@@ -72,5 +72,52 @@
                         enemies[i].Size));
             }
         }
+
+        private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            if (!isGameRunning)
+                return;
+
+            switch (e.StatusType)
+            {
+                case GestureStatus.Started:
+                    // Reset tracking at start of gesture
+                    lastPanX = e.TotalX;
+                    lastPanY = e.TotalY;
+                    break;
+
+                case GestureStatus.Running:
+                    {
+                        // Only move by the *change* in pan, not the total
+                        // Divide by 2 to reduce sensitivity
+                        double deltaX = (e.TotalX - lastPanX) / 2;
+                        double deltaY = (e.TotalY - lastPanY) / 2;
+
+                        lastPanX = e.TotalX;
+                        lastPanY = e.TotalY;
+
+                        double newX = player.X + deltaX;
+                        double newY = player.Y + deltaY;
+
+                        newX = Math.Clamp(
+                            newX,
+                            player.Size / 2,
+                            canvasWidth - player.Size / 2);
+
+                        newY = Math.Clamp(
+                            newY,
+                            player.Size / 2,
+                            canvasHeight - player.Size / 2);
+
+                        MovePlayer(newX, newY);
+                        break;
+                    }
+
+                case GestureStatus.Completed:
+                    break;
+            }
+        }
+
+
     }
 }
