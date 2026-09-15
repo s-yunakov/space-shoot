@@ -51,6 +51,16 @@
             gameTimer.IsRepeating = true;
         }
 
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            if (width > 0 && height > 0)
+            {
+                canvasWidth = width;
+                canvasHeight = height - 65; // Account for header
+            }
+        }
+
         private void OnGameTick(object sender, EventArgs e)
         {
             if (!isGameRunning)
