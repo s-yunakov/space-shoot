@@ -118,6 +118,13 @@
             }
         }
 
+        private void MovePlayer(double targetX, double targetY)
+        {
+            player.MoveTo(targetX, targetY);
+            AbsoluteLayout.SetLayoutBounds(player.Visual,
+                new Rect(player.X - player.Size / 2, player.Y - player.Size / 2, player.Size, player.Size));
+        }
+
 
     }
 }
