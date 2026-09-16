@@ -166,6 +166,12 @@
                 new Rect(player.X - player.Size / 2, player.Y - player.Size / 2, player.Size, player.Size));
         }
 
+        private void UpdateUI()
+        {
+            ScoreLabel.Text = $"Score : {score}";
+            LivesLabel.Text = $"Lives: {lives}";
+        }
+
 
     }
 }
