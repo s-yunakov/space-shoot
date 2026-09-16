@@ -66,6 +66,11 @@
             StartGame();
         }
 
+        private void OnPlayAgainClicked(object sender, EventArgs e)
+        {
+            StartGame();
+        }
+
         private void StartGame()
         {
             if (isGameRunning) return;
