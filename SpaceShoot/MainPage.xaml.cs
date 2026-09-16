@@ -61,6 +61,37 @@
             }
         }
 
+        private void OnStartClicked(object sender, EventArgs e)
+        {
+            StartGame();
+        }
+
+        private void StartGame()
+        {
+            if (isGameRunning) return;
+
+            isGameRunning = true;
+            score = 0;
+            lives = 3;
+            enemies.Clear();
+            bullets.Clear();
+            GameCanvas.Children.Clear();
+            GameOverOverlay.IsVisible = false;
+            StartButton.IsEnabled = false;
+            gameTimer.Start();
+            //enemySpawnTimer.Start();
+
+            UpdateUI();
+
+            // Create player in center
+            player = new Player(canvasWidth / 2, canvasHeight / 2);
+            GameCanvas.Children.Add(player.Visual);
+            AbsoluteLayout.SetLayoutBounds(player.Visual,
+                new Rect(player.X - player.Size / 2, player.Y - player.Size / 2, player.Size, player.Size));
+
+
+        }
+
         private void OnGameTick(object sender, EventArgs e)
         {
             if (!isGameRunning)
