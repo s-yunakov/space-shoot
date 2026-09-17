@@ -119,6 +119,47 @@
             }
         }
 
+        private void OnEnemySpawn(object sender, EventArgs e)
+        {
+            if (!isGameRunning) return;
+            SpawnEnemy();
+        }
+
+        private void SpawnEnemy()
+        {
+            Random rand = new Random();
+            double x, y;
+
+            // Spawn at random edge of screen
+            int edge = rand.Next(4);
+            switch (edge)
+            {
+                case 0: // Top
+                    x = rand.NextDouble() * canvasWidth;
+                    y = 0;
+                    break;
+                case 1: // Right
+                    x = canvasWidth;
+                    y = rand.NextDouble() * canvasHeight;
+                    break;
+                case 2: // Bottom
+                    x = rand.NextDouble() * canvasWidth;
+                    y = canvasHeight;
+                    break;
+                default: // Left
+                    x = 0;
+                    y = rand.NextDouble() * canvasHeight;
+                    break;
+            }
+
+            Enemy enemy;
+            enemy = new Enemy(x, y);
+            enemies.Add(enemy);
+            GameCanvas.Children.Add(enemy.Visual);
+            AbsoluteLayout.SetLayoutBounds(enemy.Visual,
+                new Rect(enemy.X - enemy.Size / 2, enemy.Y - enemy.Size / 2, enemy.Size, enemy.Size));
+        }
+
         private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
             if (!isGameRunning)
