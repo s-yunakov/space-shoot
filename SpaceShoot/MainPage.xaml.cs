@@ -229,6 +229,17 @@
             return distance < (size1 + size2) / 2;
         }
 
+        private void LoseLife()
+        {
+            lives--;
+            UpdateUI();
+
+            if (lives <= 0)
+            {
+                EndGame();
+            }
+        }
+
         private void UpdateUI()
         {
             ScoreLabel.Text = $"Score : {score}";
