@@ -116,6 +116,16 @@
                         enemies[i].Y - enemies[i].Size / 2,
                         enemies[i].Size,
                         enemies[i].Size));
+
+                // Check collision with player
+                if (CheckCollision(player.X, player.Y, player.Size,
+                                 enemies[i].X, enemies[i].Y, enemies[i].Size))
+                {
+                    GameCanvas.Children.Remove(enemies[i].Visual);
+                    enemies.RemoveAt(i);
+                    LoseLife();
+                    continue;
+                }
             }
         }
 
