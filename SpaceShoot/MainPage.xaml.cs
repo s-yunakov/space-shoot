@@ -212,6 +212,13 @@
                 new Rect(player.X - player.Size / 2, player.Y - player.Size / 2, player.Size, player.Size));
         }
 
+        private bool CheckCollision(double x1, double y1, double size1,
+                           double x2, double y2, double size2)
+        {
+            double distance = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
+            return distance < (size1 + size2) / 2;
+        }
+
         private void UpdateUI()
         {
             ScoreLabel.Text = $"Score : {score}";
