@@ -240,6 +240,15 @@
             }
         }
 
+        private void EndGame()
+        {
+            isGameRunning = false;
+            gameTimer?.Stop();
+            enemySpawnTimer?.Stop();
+
+            GameOverOverlay.IsVisible = true;
+        }
+
         private void UpdateUI()
         {
             ScoreLabel.Text = $"Score : {score}";
