@@ -215,6 +215,14 @@
             }
         }
 
+        private void OnCanvasTapped(object sender, TappedEventArgs e)
+        {
+            if (!isGameRunning)
+                return;
+
+            // Tap to shoot in direction of tap
+        }
+
         private void MovePlayer(double targetX, double targetY)
         {
             player.MoveTo(targetX, targetY);
