@@ -272,6 +272,12 @@
             LivesLabel.Text = $"Lives: {lives}";
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            gameTimer?.Stop();
+            enemySpawnTimer?.Stop();
+        }
 
     }
 }
