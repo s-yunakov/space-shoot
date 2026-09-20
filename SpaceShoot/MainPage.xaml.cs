@@ -230,6 +230,15 @@
                 new Rect(player.X - player.Size / 2, player.Y - player.Size / 2, player.Size, player.Size));
         }
 
+        private void ShootTowards(double targetX, double targetY)
+        {
+            if (bullets.Count >= MaxBullets)
+                return;
+
+            // Calculate direction to tap point
+            double dx = targetX - player.X;
+        }
+
         private bool CheckCollision(double x1, double y1, double size1,
                            double x2, double y2, double size2)
         {
