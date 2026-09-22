@@ -43,6 +43,9 @@
             GameCanvas.GestureRecognizers.Add(panGesture);
 
             // Keep tap gesture for shooting
+            var tapGesture = new TapGestureRecognizer();
+            tapGesture.Tapped += OnCanvasTapped;
+            GameCanvas.GestureRecognizers.Add(tapGesture);
 
             // Setup game loop timer using DispatcherTimer (60 FPS)
             gameTimer = Dispatcher.CreateTimer();
@@ -221,6 +224,12 @@
                 return;
 
             // Tap to shoot in direction of tap
+            Point? position = e.GetPosition(GameCanvas);
+
+            if (position.HasValue)
+            {
+                ShootTowards(position.Value.X, position.Value.Y);
+            }
         }
 
         private void MovePlayer(double targetX, double targetY)
