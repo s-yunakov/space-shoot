@@ -21,6 +21,9 @@ namespace SpaceShoot
             X = x;
             Y = y;
 
+            velocityX = directionX * speed;
+            velocityY = directionY * speed;
+
             Visual = new BoxView
             {
                 WidthRequest = 6,
@@ -28,6 +31,12 @@ namespace SpaceShoot
                 Color = Colors.Yellow,
                 CornerRadius = 3
             };
+        }
+
+        public void Update()
+        {
+            X += velocityX;
+            Y += velocityY;
         }
 
         // Checks if the bullet is still within the game boundaries.
