@@ -237,6 +237,32 @@
 
             // Calculate direction to tap point
             double dx = targetX - player.X;
+            double dy = targetY - player.Y;
+
+            double distance = Math.Sqrt(dx * dx + dy * dy);
+
+            if (distance <= 0)
+                return;
+
+            double directionX = dx / distance;
+            double directionY = dy / distance;
+
+            Bullet bullet = new Bullet(
+                player.X,
+                player.Y,
+                directionX,
+                directionY);
+
+            bullets.Add(bullet);
+            GameCanvas.Children.Add(bullet.Visual);
+
+            AbsoluteLayout.SetLayoutBounds(
+                bullet.Visual,
+                new Rect(
+                    bullet.X - 3,
+                    bullet.Y - 10,
+                    6,
+                    20));
         }
 
         private bool CheckCollision(double x1, double y1, double size1,
