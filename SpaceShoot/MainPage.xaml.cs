@@ -106,6 +106,24 @@
                 return;
 
             // Update all bullets
+            for (int i = bullets.Count - 1; i >= 0; i--)
+            {
+                bullets[i].Update();
+
+                AbsoluteLayout.SetLayoutBounds(
+                    bullets[i].Visual,
+                    new Rect(
+                        bullets[i].X - 3,
+                        bullets[i].Y - 10,
+                        6,
+                        20));
+
+                if (!bullets[i].IsOnScreen(canvasWidth, canvasHeight))
+                {
+                    GameCanvas.Children.Remove(bullets[i].Visual);
+                    bullets.RemoveAt(i);
+                }
+            }
 
             // Update all enemies
             for (int i = enemies.Count - 1; i >= 0; i--)
