@@ -52,6 +52,11 @@
             gameTimer.Interval = TimeSpan.FromMilliseconds(16);
             gameTimer.Tick += OnGameTick;
             gameTimer.IsRepeating = true;
+
+            enemySpawnTimer = Dispatcher.CreateTimer();
+            enemySpawnTimer.Interval = TimeSpan.FromSeconds(2);
+            enemySpawnTimer.Tick += OnEnemySpawn;
+            enemySpawnTimer.IsRepeating = true;
         }
 
         protected override void OnSizeAllocated(double width, double height)
@@ -87,7 +92,7 @@
             GameOverOverlay.IsVisible = false;
             StartButton.IsEnabled = false;
             gameTimer.Start();
-            //enemySpawnTimer.Start();
+            enemySpawnTimer.Start();
 
             UpdateUI();
 
