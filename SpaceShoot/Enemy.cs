@@ -11,7 +11,7 @@ namespace SpaceShoot
         public double X { get; private set; }
         public double Y { get; private set; }
         public double Size { get; private set; } = 30;
-        public BoxView Visual { get; private set; }
+        public Image Visual { get; private set; }
 
         private double velocityX;
         private double velocityY;
@@ -25,12 +25,12 @@ namespace SpaceShoot
             X = x;
             Y = y;
 
-            Visual = new BoxView
+            Visual = new Image
             {
-                Color = Colors.Red,
+                Source = "alien1.png",
                 WidthRequest = Size,
                 HeightRequest = Size,
-                CornerRadius = Size / 2
+                Aspect = Aspect.AspectFit
             };
         }
 
