@@ -147,6 +147,28 @@
                     LoseLife();
                     continue;
                 }
+
+                // Check collision with bullets
+                for (int j = bullets.Count - 1; j >= 0; j--)
+                {
+                    if (CheckCollision(
+                            enemies[i].X,
+                            enemies[i].Y,
+                            enemies[i].Size,
+                            bullets[j].X,
+                            bullets[j].Y,
+                            bullets[j].Visual.WidthRequest))
+                    {
+                        GameCanvas.Children.Remove(enemies[i].Visual);
+                        GameCanvas.Children.Remove(bullets[j].Visual);
+
+                        enemies.RemoveAt(i);
+                        bullets.RemoveAt(j);
+
+                        Score += 10;
+                        break;
+                    }
+                }
             }
         }
 
