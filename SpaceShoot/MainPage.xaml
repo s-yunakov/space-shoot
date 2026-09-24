@@ -45,6 +45,12 @@
                    HorizontalOptions="End"/>
         </Grid>
 
+        <!-- Game Background -->
+        <Image Grid.Row="1"
+               Source="space.jpg"
+               Aspect="AspectFill"
+               InputTransparent="True" />
+
         <!-- Game Canvas -->
         <AbsoluteLayout x:Name="GameCanvas" 
                        Grid.Row="1">
