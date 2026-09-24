@@ -24,12 +24,15 @@ namespace SpaceShoot
             velocityX = directionX * speed;
             velocityY = directionY * speed;
 
+            double angle = Math.Atan2(directionY, directionX) * 180 / Math.PI + 90;
+
             Visual = new BoxView
             {
                 WidthRequest = 6,
                 HeightRequest = 20,
                 Color = Colors.Yellow,
-                CornerRadius = 3
+                CornerRadius = 3,
+                Rotation = angle,
             };
         }
 
