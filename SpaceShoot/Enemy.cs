@@ -13,6 +13,15 @@ namespace SpaceShoot
         public double Size { get; private set; } = 30;
         public Image Visual { get; private set; }
 
+        private readonly string[] enemySprites =
+        {
+            "alien1.png",
+            "alien2.png",
+            "alien3.png",
+            "monster.png",
+            "ufo.png"
+        };
+
         private double velocityX;
         private double velocityY;
         private double speed = 2.0;
@@ -27,7 +36,7 @@ namespace SpaceShoot
 
             Visual = new Image
             {
-                Source = "alien1.png",
+                Source = enemySprites[random.Next(enemySprites.Length)],
                 WidthRequest = Size,
                 HeightRequest = Size,
                 Aspect = Aspect.AspectFit
