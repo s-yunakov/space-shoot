@@ -164,13 +164,15 @@
                             bullets[j].Y,
                             bullets[j].Visual.WidthRequest))
                     {
-                        GameCanvas.Children.Remove(enemies[i].Visual);
                         GameCanvas.Children.Remove(bullets[j].Visual);
-
-                        enemies.RemoveAt(i);
                         bullets.RemoveAt(j);
 
+                        var enemyVisual = enemies[i].Visual;
+                        enemies.RemoveAt(i);
+
                         Score += 10;
+
+                        _ = AnimateEnemyHit(enemyVisual);
                         break;
                     }
                 }
@@ -324,6 +326,12 @@
         {
             double distance = Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
             return distance < (size1 + size2) / 2;
+        }
+
+        private async Task AnimateEnemyHit(View enemyVisual)
+        {
+            await enemyVisual.FadeTo(0, 100);
+            GameCanvas.Children.Remove(enemyVisual);
         }
 
         private void LoseLife()
