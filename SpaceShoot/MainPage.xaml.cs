@@ -171,6 +171,7 @@
                         enemies.RemoveAt(i);
 
                         Score += 10;
+                        UpdateUI();
 
                         _ = AnimateEnemyHit(enemyVisual);
                         break;
