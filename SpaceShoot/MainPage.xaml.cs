@@ -303,6 +303,9 @@
             double directionX = dx / distance;
             double directionY = dy / distance;
 
+            double angle = Math.Atan2(directionY, directionX) * 180 / Math.PI + 90;
+            player.RotatePlayer(angle);
+
             Bullet bullet = new Bullet(
                 player.X,
                 player.Y,
