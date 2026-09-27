@@ -87,6 +87,7 @@
             isGameRunning = true;
             score = 0;
             lives = 3;
+            enemySpawnTimer.Interval = TimeSpan.FromSeconds(2);
             enemies.Clear();
             bullets.Clear();
             GameCanvas.Children.Clear();
@@ -173,6 +174,7 @@
 
                         Score += 10;
                         UpdateUI();
+                        UpdateDifficulty();
 
                         _ = AnimateEnemyHit(enemyVisual);
                         break;
@@ -364,6 +366,25 @@
 
             GameOverOverlay.IsVisible = true;
             StartButton.IsEnabled = true;
+        }
+
+        private void UpdateDifficulty()
+        {
+            if (enemySpawnTimer == null)
+                return;
+
+            if (score >= 100)
+            {
+                enemySpawnTimer.Interval = TimeSpan.FromSeconds(1);
+            }
+            else if (score >= 50)
+            {
+                enemySpawnTimer.Interval = TimeSpan.FromSeconds(1.5);
+            }
+            else
+            {
+                enemySpawnTimer.Interval = TimeSpan.FromSeconds(2);
+            }
         }
 
         private void UpdateUI()
