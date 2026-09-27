@@ -13,6 +13,7 @@
         private bool isGameRunning = false;
 
         private const int MaxBullets = 5;
+        private const int MaxEnemies = 20;
         private double canvasWidth;
         private double canvasHeight;
         private double lastPanX = 0;
@@ -188,6 +189,12 @@
 
         private void SpawnEnemy()
         {
+            if (!isGameRunning)
+                return;
+
+            if (enemies.Count >= MaxEnemies)
+                return;
+
             Random rand = new Random();
             double x, y;
 
