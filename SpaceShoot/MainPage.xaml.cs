@@ -356,6 +356,7 @@
             enemySpawnTimer?.Stop();
 
             GameOverOverlay.IsVisible = true;
+            StartButton.IsEnabled = true;
         }
 
         private void UpdateUI()
