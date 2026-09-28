@@ -12,6 +12,7 @@ namespace SpaceShoot
         public double Y { get; private set; }
         public double Size { get; private set; } = 30;
         public Image Visual { get; private set; }
+        public int Health { get; private set; }
 
         private readonly string[] enemySprites =
         {
@@ -35,6 +36,7 @@ namespace SpaceShoot
             Y = y;
 
             speed = 1.5 + random.NextDouble() * 2.0;
+            Health = random.Next(1, 4);
 
             Visual = new Image
             {
