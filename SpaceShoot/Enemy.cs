@@ -24,7 +24,7 @@ namespace SpaceShoot
 
         private double velocityX;
         private double velocityY;
-        private double speed = 2.0;
+        private double speed;
         private Random random = new Random();
         private DateTime lastDirectionChange;
         private int directionChangeInterval = 2000; // Change direction every 2 seconds
@@ -33,6 +33,8 @@ namespace SpaceShoot
         {
             X = x;
             Y = y;
+
+            speed = 1.5 + random.NextDouble() * 2.0;
 
             Visual = new Image
             {
