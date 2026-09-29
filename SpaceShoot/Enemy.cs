@@ -36,11 +36,21 @@ namespace SpaceShoot
             Y = y;
 
             speed = 1.5 + random.NextDouble() * 2.0;
-            Health = random.Next(1, 4);
+            string sprite = enemySprites[random.Next(enemySprites.Length)];
+
+            Health = sprite switch
+            {
+                "alien1.png" => 1,
+                "alien2.png" => 1,
+                "alien3.png" => 2,
+                "ufo.png" => 2,
+                "monster.png" => 3,
+                _ => 1
+            };
 
             Visual = new Image
             {
-                Source = enemySprites[random.Next(enemySprites.Length)],
+                Source = sprite,
                 WidthRequest = Size,
                 HeightRequest = Size,
                 Aspect = Aspect.AspectFit
