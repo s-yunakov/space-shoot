@@ -169,15 +169,21 @@
                         GameCanvas.Children.Remove(bullets[j].Visual);
                         bullets.RemoveAt(j);
 
-                        var enemyVisual = enemies[i].Visual;
-                        enemies.RemoveAt(i);
+                        enemies[i].Health--;
 
-                        Score += 10;
-                        UpdateUI();
-                        UpdateDifficulty();
+                        if (enemies[i].Health <= 0)
+                        {
+                            var enemyVisual = enemies[i].Visual;
+                            enemies.RemoveAt(i);
 
-                        _ = AnimateEnemyHit(enemyVisual);
-                        break;
+                            Score += 10;
+                            UpdateUI();
+                            UpdateDifficulty();
+
+                            _ = AnimateEnemyHit(enemyVisual);
+
+                            break;
+                        }
                     }
                 }
             }

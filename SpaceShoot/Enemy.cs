@@ -12,7 +12,7 @@ namespace SpaceShoot
         public double Y { get; private set; }
         public double Size { get; private set; } = 30;
         public Image Visual { get; private set; }
-        public int Health { get; private set; }
+        public int Health { get; set; }
 
         private readonly string[] enemySprites =
         {
