@@ -13,6 +13,7 @@ namespace SpaceShoot
         public double Size { get; private set; } = 30;
         public Image Visual { get; private set; }
         public int Health { get; set; }
+        public int ScoreValue { get; private set; }
 
         private readonly string[] enemySprites =
         {
@@ -46,6 +47,16 @@ namespace SpaceShoot
                 "ufo.png" => 2,
                 "monster.png" => 3,
                 _ => 1
+            };
+
+            ScoreValue = sprite switch
+            {
+                "alien1.png" => 10,
+                "alien2.png" => 10,
+                "alien3.png" => 20,
+                "ufo.png" => 25,
+                "monster.png" => 50,
+                _ => 10
             };
 
             Visual = new Image

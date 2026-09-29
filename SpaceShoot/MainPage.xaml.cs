@@ -174,9 +174,11 @@
                         if (enemies[i].Health <= 0)
                         {
                             var enemyVisual = enemies[i].Visual;
+                            int scoreValue = enemies[i].ScoreValue;
+
                             enemies.RemoveAt(i);
 
-                            Score += 10;
+                            Score += scoreValue;
                             UpdateUI();
                             UpdateDifficulty();
 
