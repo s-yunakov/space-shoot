@@ -18,6 +18,8 @@
         private double canvasHeight;
         private double lastPanX = 0;
         private double lastPanY = 0;
+        private DateTime playerInvulnerableUntil = DateTime.MinValue;
+        private const double InvulnerabilitySeconds = 1.5;
 
         public int Score
         {
@@ -87,6 +89,7 @@
             isGameRunning = true;
             score = 0;
             lives = 3;
+            playerInvulnerableUntil = DateTime.MinValue;
             enemySpawnTimer.Interval = TimeSpan.FromSeconds(2);
             enemies.Clear();
             bullets.Clear();
@@ -146,12 +149,23 @@
                         enemies[i].Size));
 
                 // Check collision with player
-                if (CheckCollision(player.X, player.Y, player.Size,
-                                 enemies[i].X, enemies[i].Y, enemies[i].Size))
+                if (DateTime.Now >= playerInvulnerableUntil &&
+                    CheckCollision(
+                        player.X,
+                        player.Y,
+                        player.Size,
+                        enemies[i].X,
+                        enemies[i].Y,
+                        enemies[i].Size))
                 {
                     GameCanvas.Children.Remove(enemies[i].Visual);
                     enemies.RemoveAt(i);
+
                     LoseLife();
+
+                    playerInvulnerableUntil =
+                        DateTime.Now.AddSeconds(InvulnerabilitySeconds);
+
                     continue;
                 }
 
