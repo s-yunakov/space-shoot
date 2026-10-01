@@ -28,6 +28,13 @@
             set
             {
                 score = value;
+
+                if (score > highScore)
+                {
+                    highScore = score;
+                    Preferences.Default.Set("HighScore", highScore);
+                }
+
                 OnPropertyChanged();
             }
         }
