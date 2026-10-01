@@ -9,6 +9,7 @@
         private IDispatcherTimer enemySpawnTimer;
 
         private int score = 0;
+        private int highScore = 0;
         private int lives = 3;
         private bool isGameRunning = false;
 
@@ -34,6 +35,7 @@
         public MainPage()
         {
             InitializeComponent();
+            highScore = Preferences.Default.Get("HighScore", 0);
             InitialiseTimersandGestures();
             BindingContext = this;
         }
