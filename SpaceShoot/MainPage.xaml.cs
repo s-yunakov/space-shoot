@@ -12,6 +12,7 @@
         private int highScore = 0;
         private int lives = 3;
         private bool isGameRunning = false;
+        private WeaponType currentWeapon = WeaponType.Single;
 
         private const int MaxBullets = 5;
         private const int MaxEnemies = 20;
@@ -98,6 +99,7 @@
             isGameRunning = true;
             score = 0;
             lives = 3;
+            currentWeapon = WeaponType.Single;
             playerInvulnerableUntil = DateTime.MinValue;
             enemySpawnTimer.Interval = TimeSpan.FromSeconds(2);
             enemies.Clear();
