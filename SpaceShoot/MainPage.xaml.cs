@@ -349,6 +349,14 @@
             double angle = Math.Atan2(directionY, directionX) * 180 / Math.PI + 90;
             player.RotatePlayer(angle);
 
+            ShootBullet(directionX, directionY);
+        }
+
+        private void ShootBullet(double directionX, double directionY)
+        {
+            if (bullets.Count >= MaxBullets)
+                return;
+
             Bullet bullet = new Bullet(
                 player.X,
                 player.Y,
