@@ -465,6 +465,18 @@
             }
         }
 
+        private void UpdateWeapon()
+        {
+            if (score >= 50)
+            {
+                currentWeapon = WeaponType.Double;
+            }
+            else
+            {
+                currentWeapon = WeaponType.Single;
+            }
+        }
+
         private void UpdateUI()
         {
             ScoreLabel.Text = $"Score : {score}";
