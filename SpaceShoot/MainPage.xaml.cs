@@ -375,6 +375,27 @@
                     20));
         }
 
+        private void ShootBulletWithSpread(
+            double directionX,
+            double directionY,
+            double angleDegrees)
+            {
+                if (bullets.Count >= MaxBullets)
+                    return;
+
+                double angle = angleDegrees * Math.PI / 180.0;
+
+                double rotatedX =
+                    directionX * Math.Cos(angle) -
+                    directionY * Math.Sin(angle);
+
+                double rotatedY =
+                    directionX * Math.Sin(angle) +
+                    directionY * Math.Cos(angle);
+
+                ShootBullet(rotatedX, rotatedY);
+            }
+
         private bool CheckCollision(double x1, double y1, double size1,
                            double x2, double y2, double size2)
         {
