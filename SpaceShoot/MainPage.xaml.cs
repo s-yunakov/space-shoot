@@ -468,7 +468,11 @@
 
         private void UpdateWeapon()
         {
-            if (score >= 50)
+            if (score >= 150)
+            {
+                currentWeapon = WeaponType.Triple;
+            }
+            else if (score >= 50)
             {
                 currentWeapon = WeaponType.Double;
             }
