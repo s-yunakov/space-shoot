@@ -206,6 +206,7 @@
                             Score += scoreValue;
                             UpdateUI();
                             UpdateDifficulty();
+                            UpdateWeapon();
 
                             _ = AnimateEnemyHit(enemyVisual);
 
