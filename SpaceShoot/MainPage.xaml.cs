@@ -482,6 +482,17 @@
             }
         }
 
+        private string GetWeaponName()
+        {
+            return currentWeapon switch
+            {
+                WeaponType.Single => "Weapon: Single",
+                WeaponType.Double => "Weapon: Double",
+                WeaponType.Triple => "Weapon: Triple",
+                _ => "Weapon: Single"
+            };
+        }
+
         private void UpdateUI()
         {
             ScoreLabel.Text = $"Score : {score}";
