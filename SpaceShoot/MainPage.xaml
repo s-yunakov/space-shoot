@@ -18,13 +18,23 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="ScoreLabel" 
-                   Text="{Binding Score, StringFormat='Score : {0}'}" 
-                   TextColor="White" 
-                   FontSize="20" 
-                   FontAttributes="Bold"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Start"/>
+            <VerticalStackLayout
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                Spacing="0">
+
+                <Label x:Name="ScoreLabel"
+                       Text="{Binding Score, StringFormat='Score : {0}'}"
+                       TextColor="White"
+                       FontSize="18"
+                       FontAttributes="Bold"/>
+
+                <Label x:Name="WeaponLabel"
+                       Text="Weapon: Single"
+                       TextColor="Gold"
+                       FontSize="13"
+                       FontAttributes="Bold"/>
+            </VerticalStackLayout>
 
             <Button x:Name="StartButton"
                     Grid.Column="1"
