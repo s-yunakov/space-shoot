@@ -493,11 +493,24 @@
             };
         }
 
+        private void UpdateWeaponLabel()
+        {
+            WeaponLabel.Text = GetWeaponName();
+
+            WeaponLabel.TextColor = currentWeapon switch
+            {
+                WeaponType.Single => Colors.White,
+                WeaponType.Double => Colors.Gold,
+                WeaponType.Triple => Colors.OrangeRed,
+                _ => Colors.White
+            };
+        }
+
         private void UpdateUI()
         {
             ScoreLabel.Text = $"Score : {score}";
             LivesLabel.Text = $"Lives: {lives}";
-            WeaponLabel.Text = GetWeaponName();
+            UpdateWeaponLabel();
         }
 
         protected override void OnDisappearing()
