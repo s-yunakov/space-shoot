@@ -204,9 +204,9 @@
                             enemies.RemoveAt(i);
 
                             Score += scoreValue;
-                            UpdateUI();
                             UpdateDifficulty();
                             UpdateWeapon();
+                            UpdateUI();
 
                             _ = AnimateEnemyHit(enemyVisual);
 
@@ -497,6 +497,7 @@
         {
             ScoreLabel.Text = $"Score : {score}";
             LivesLabel.Text = $"Lives: {lives}";
+            WeaponLabel.Text = GetWeaponName();
         }
 
         protected override void OnDisappearing()
