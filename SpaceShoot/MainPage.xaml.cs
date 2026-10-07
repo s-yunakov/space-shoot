@@ -14,7 +14,7 @@
         private bool isGameRunning = false;
         private WeaponType currentWeapon = WeaponType.Single;
 
-        private const int MaxBullets = 5;
+        private const int MaxBullets = 15;
         private const int MaxEnemies = 20;
         private double canvasWidth;
         private double canvasHeight;
