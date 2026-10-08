@@ -6,29 +6,8 @@ using System.Threading.Tasks;
 
 namespace SpaceShoot
 {
-    public class PowerUp
+    public enum PowerUpType
     {
-        public double X { get; private set; }
-        public double Y { get; private set; }
-        public double Size { get; private set; } = 40;
-
-        public PowerUpType Type { get; private set; }
-
-        public Image Visual { get; private set; }
-
-        public PowerUp(double x, double y, PowerUpType type)
-        {
-            X = x;
-            Y = y;
-            Type = type;
-
-            Visual = new Image
-            {
-                Source = "ufo.png",
-                WidthRequest = Size,
-                HeightRequest = Size,
-                Aspect = Aspect.AspectFit
-            };
-        }
+        TripleShot
     }
 }
