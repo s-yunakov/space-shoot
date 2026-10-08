@@ -5,6 +5,7 @@
         private Player player;
         private List<Enemy> enemies = new();
         private List<Bullet> bullets = new();
+        private List<PowerUp> powerUps = new();
         private IDispatcherTimer gameTimer;
         private IDispatcherTimer enemySpawnTimer;
 
@@ -104,6 +105,7 @@
             enemySpawnTimer.Interval = TimeSpan.FromSeconds(2);
             enemies.Clear();
             bullets.Clear();
+            powerUps.Clear();
             GameCanvas.Children.Clear();
             GameOverOverlay.IsVisible = false;
             StartButton.IsEnabled = false;
