@@ -24,6 +24,8 @@
         private double lastPanY = 0;
         private DateTime playerInvulnerableUntil = DateTime.MinValue;
         private const double InvulnerabilitySeconds = 1.5;
+        private DateTime tripleShotUntil = DateTime.MinValue;
+        private const double TripleShotDurationSeconds = 10;
 
         public int Score
         {
@@ -107,6 +109,7 @@
             score = 0;
             lives = 3;
             currentWeapon = WeaponType.Single;
+            tripleShotUntil = DateTime.MinValue;
             playerInvulnerableUntil = DateTime.MinValue;
             enemySpawnTimer.Interval = TimeSpan.FromSeconds(2);
             enemies.Clear();
@@ -134,6 +137,37 @@
         {
             if (!isGameRunning)
                 return;
+
+            // Check if temporary Triple Shot has expired
+            if (tripleShotUntil != DateTime.MinValue &&
+                DateTime.Now >= tripleShotUntil)
+            {
+                tripleShotUntil = DateTime.MinValue;
+                UpdateWeapon();
+                UpdateUI();
+            }
+
+            // Check collision with power-ups
+            for (int i = powerUps.Count - 1; i >= 0; i--)
+            {
+                if (CheckCollision(
+                        player.X,
+                        player.Y,
+                        player.Size,
+                        powerUps[i].X,
+                        powerUps[i].Y,
+                        powerUps[i].Size))
+                {
+                    GameCanvas.Children.Remove(powerUps[i].Visual);
+                    powerUps.RemoveAt(i);
+
+                    tripleShotUntil = DateTime.Now.AddSeconds(
+                        TripleShotDurationSeconds);
+
+                    UpdateWeapon();
+                    UpdateUI();
+                }
+            }
 
             // Update all bullets
             for (int i = bullets.Count - 1; i >= 0; i--)
@@ -478,6 +512,12 @@
 
         private void UpdateWeapon()
         {
+            if (DateTime.Now < tripleShotUntil)
+            {
+                currentWeapon = WeaponType.Triple;
+                return;
+            }
+
             if (score >= 150)
             {
                 currentWeapon = WeaponType.Triple;
