@@ -8,6 +8,7 @@
         private List<PowerUp> powerUps = new();
         private IDispatcherTimer gameTimer;
         private IDispatcherTimer enemySpawnTimer;
+        private IDispatcherTimer powerUpSpawnTimer;
 
         private int score = 0;
         private int highScore = 0;
@@ -71,6 +72,11 @@
             enemySpawnTimer.Interval = TimeSpan.FromSeconds(2);
             enemySpawnTimer.Tick += OnEnemySpawn;
             enemySpawnTimer.IsRepeating = true;
+
+            powerUpSpawnTimer = Dispatcher.CreateTimer();
+            powerUpSpawnTimer.Interval = TimeSpan.FromSeconds(12);
+            powerUpSpawnTimer.Tick += OnPowerUpSpawn;
+            powerUpSpawnTimer.IsRepeating = true;
         }
 
         protected override void OnSizeAllocated(double width, double height)
@@ -111,6 +117,7 @@
             StartButton.IsEnabled = false;
             gameTimer.Start();
             enemySpawnTimer.Start();
+            powerUpSpawnTimer.Start();
 
             UpdateUI();
 
@@ -444,6 +451,7 @@
             isGameRunning = false;
             gameTimer?.Stop();
             enemySpawnTimer?.Stop();
+            powerUpSpawnTimer?.Stop();
 
             GameOverOverlay.IsVisible = true;
             StartButton.IsEnabled = true;
@@ -520,6 +528,45 @@
             base.OnDisappearing();
             gameTimer?.Stop();
             enemySpawnTimer?.Stop();
+            powerUpSpawnTimer?.Stop();
+        }
+
+        private void OnPowerUpSpawn(object sender, EventArgs e)
+        {
+            if (!isGameRunning)
+                return;
+
+            SpawnPowerUp();
+        }
+
+        private void SpawnPowerUp()
+        {
+            if (powerUps.Count >= 1)
+                return;
+
+            if (canvasWidth <= 40 || canvasHeight <= 40)
+                return;
+
+            Random rand = new Random();
+
+            double x = 20 + rand.NextDouble() * (canvasWidth - 40);
+            double y = 20 + rand.NextDouble() * (canvasHeight - 40);
+
+            PowerUp powerUp = new PowerUp(
+                x,
+                y,
+                PowerUpType.TripleShot);
+
+            powerUps.Add(powerUp);
+            GameCanvas.Children.Add(powerUp.Visual);
+
+            AbsoluteLayout.SetLayoutBounds(
+                powerUp.Visual,
+                new Rect(
+                    powerUp.X - powerUp.Size / 2,
+                    powerUp.Y - powerUp.Size / 2,
+                    powerUp.Size,
+                    powerUp.Size));
         }
 
     }
