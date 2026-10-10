@@ -152,6 +152,16 @@
 
             UpdateTripleShotCountdown();
 
+            // Remove expired power-ups
+            for (int i = powerUps.Count - 1; i >= 0; i--)
+            {
+                if (DateTime.Now >= powerUps[i].ExpiresAt)
+                {
+                    GameCanvas.Children.Remove(powerUps[i].Visual);
+                    powerUps.RemoveAt(i);
+                }
+            }
+
             // Check collision with power-ups
             for (int i = powerUps.Count - 1; i >= 0; i--)
             {

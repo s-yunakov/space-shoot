@@ -14,6 +14,8 @@ namespace SpaceShoot
 
         public PowerUpType Type { get; private set; }
 
+        public DateTime ExpiresAt { get; private set; }
+
         public Image Visual { get; private set; }
 
         public PowerUp(double x, double y, PowerUpType type)
@@ -21,6 +23,8 @@ namespace SpaceShoot
             X = x;
             Y = y;
             Type = type;
+
+            ExpiresAt = DateTime.Now.AddSeconds(8);
 
             Visual = new Image
             {
