@@ -26,6 +26,7 @@
         private const double InvulnerabilitySeconds = 1.5;
         private DateTime tripleShotUntil = DateTime.MinValue;
         private const double TripleShotDurationSeconds = 10;
+        private int lastDisplayedTripleSeconds = -1;
 
         public int Score
         {
@@ -143,9 +144,13 @@
                 DateTime.Now >= tripleShotUntil)
             {
                 tripleShotUntil = DateTime.MinValue;
+                lastDisplayedTripleSeconds = -1;
+
                 UpdateWeapon();
                 UpdateUI();
             }
+
+            UpdateTripleShotCountdown();
 
             // Check collision with power-ups
             for (int i = powerUps.Count - 1; i >= 0; i--)
@@ -163,6 +168,8 @@
 
                     tripleShotUntil = DateTime.Now.AddSeconds(
                         TripleShotDurationSeconds);
+
+                    lastDisplayedTripleSeconds = -1;
 
                     UpdateWeapon();
                     UpdateUI();
@@ -545,7 +552,18 @@
 
         private void UpdateWeaponLabel()
         {
-            WeaponLabel.Text = GetWeaponName();
+            if (tripleShotUntil != DateTime.MinValue &&
+                DateTime.Now < tripleShotUntil)
+            {
+                int secondsRemaining = (int)Math.Ceiling(
+                    (tripleShotUntil - DateTime.Now).TotalSeconds);
+
+                WeaponLabel.Text = $"Triple Shot: {secondsRemaining}s";
+            }
+            else
+            {
+                WeaponLabel.Text = GetWeaponName();
+            }
 
             WeaponLabel.TextColor = currentWeapon switch
             {
@@ -554,6 +572,21 @@
                 WeaponType.Triple => Colors.OrangeRed,
                 _ => Colors.White
             };
+        }
+
+        private void UpdateTripleShotCountdown()
+        {
+            if (tripleShotUntil == DateTime.MinValue)
+                return;
+
+            int secondsRemaining = (int)Math.Ceiling(
+                (tripleShotUntil - DateTime.Now).TotalSeconds);
+
+            if (secondsRemaining != lastDisplayedTripleSeconds)
+            {
+                lastDisplayedTripleSeconds = secondsRemaining;
+                UpdateWeaponLabel();
+            }
         }
 
         private void UpdateUI()
