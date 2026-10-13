@@ -16,7 +16,7 @@ namespace SpaceShoot
 
         public DateTime ExpiresAt { get; private set; }
 
-        public Image Visual { get; private set; }
+        public View Visual { get; private set; }
 
         public PowerUp(double x, double y, PowerUpType type)
         {
@@ -26,13 +26,29 @@ namespace SpaceShoot
 
             ExpiresAt = DateTime.Now.AddSeconds(8);
 
-            Visual = new Image
+            if (type == PowerUpType.ExtraLife)
             {
-                Source = "ufo.png",
-                WidthRequest = Size,
-                HeightRequest = Size,
-                Aspect = Aspect.AspectFit
-            };
+                Visual = new Label
+                {
+                    Text = "❤️",
+                    FontSize = 30,
+                    WidthRequest = Size,
+                    HeightRequest = Size,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    BackgroundColor = Colors.Transparent
+                };
+            }
+            else
+            {
+                Visual = new Image
+                {
+                    Source = "ufo.png",
+                    WidthRequest = Size,
+                    HeightRequest = Size,
+                    Aspect = Aspect.AspectFit
+                };
+            }
         }
     }
 }
