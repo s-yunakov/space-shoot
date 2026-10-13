@@ -8,6 +8,7 @@ namespace SpaceShoot
 {
     public enum PowerUpType
     {
-        TripleShot
+        TripleShot,
+        ExtraLife
     }
 }
