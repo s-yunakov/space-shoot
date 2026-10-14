@@ -166,6 +166,13 @@
             // Check collision with power-ups
             for (int i = powerUps.Count - 1; i >= 0; i--)
             {
+                if (CheckCollision(
+                        player.X,
+                        player.Y,
+                        player.Size,
+                        powerUps[i].X,
+                        powerUps[i].Y,
+                        powerUps[i].Size))
                 {
                     PowerUp powerUp = powerUps[i];
 
@@ -180,12 +187,32 @@
                         lastDisplayedTripleSeconds = -1;
 
                         UpdateWeapon();
+
+                        _ = ShowPowerUpMessage(
+                            "TRIPLE SHOT!",
+                            powerUp.X,
+                            powerUp.Y,
+                            Colors.OrangeRed);
                     }
                     else if (powerUp.Type == PowerUpType.ExtraLife)
                     {
                         if (lives < MaxLives)
                         {
                             lives++;
+
+                            _ = ShowPowerUpMessage(
+                                "+1 LIFE",
+                                powerUp.X,
+                                powerUp.Y,
+                                Colors.LimeGreen);
+                        }
+                        else
+                        {
+                            _ = ShowPowerUpMessage(
+                                "MAX LIVES",
+                                powerUp.X,
+                                powerUp.Y,
+                                Colors.Gold);
                         }
                     }
 
@@ -589,6 +616,41 @@
                 WeaponType.Triple => Colors.OrangeRed,
                 _ => Colors.White
             };
+        }
+
+        private async Task ShowPowerUpMessage(
+            string text,
+            double x,
+            double y,
+            Color color)
+        {
+            var message = new Label
+            {
+                Text = text,
+                TextColor = color,
+                FontSize = 22,
+                FontAttributes = FontAttributes.Bold,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                BackgroundColor = Colors.Transparent,
+                InputTransparent = true,
+                Opacity = 0
+            };
+
+            GameCanvas.Children.Add(message);
+
+            double left = Math.Clamp(x - 90, 0, Math.Max(0, canvasWidth - 180));
+            double top = Math.Clamp(y - 25, 0, Math.Max(0, canvasHeight - 50));
+
+            AbsoluteLayout.SetLayoutBounds(
+                message,
+                new Rect(left, top, 180, 50));
+
+            await message.FadeTo(1, 150);
+            await message.TranslateTo(0, -30, 650, Easing.CubicOut);
+            await message.FadeTo(0, 250);
+
+            GameCanvas.Children.Remove(message);
         }
 
         private void UpdateTripleShotCountdown()
