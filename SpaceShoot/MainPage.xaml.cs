@@ -632,25 +632,43 @@
                 FontAttributes = FontAttributes.Bold,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
-                BackgroundColor = Colors.Transparent,
-                InputTransparent = true,
-                Opacity = 0
+                HorizontalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.Fill,
+                BackgroundColor = Color.FromArgb("#CC000000"),
+                WidthRequest = 220,
+                HeightRequest = 55,
+                Opacity = 0,
+                ZIndex = 1000,
+                InputTransparent = true
             };
 
-            GameCanvas.Children.Add(message);
+            double left = Math.Clamp(
+                x - 110,
+                0,
+                Math.Max(0, canvasWidth - 220));
 
-            double left = Math.Clamp(x - 90, 0, Math.Max(0, canvasWidth - 180));
-            double top = Math.Clamp(y - 25, 0, Math.Max(0, canvasHeight - 50));
+            double top = Math.Clamp(
+                y - 27,
+                0,
+                Math.Max(0, canvasHeight - 55));
 
             AbsoluteLayout.SetLayoutBounds(
                 message,
-                new Rect(left, top, 180, 50));
+                new Rect(left, top, 220, 55));
 
-            await message.FadeTo(1, 150);
-            await message.TranslateTo(0, -30, 650, Easing.CubicOut);
-            await message.FadeTo(0, 250);
+            GameCanvas.Children.Add(message);
 
-            GameCanvas.Children.Remove(message);
+            try
+            {
+                await message.FadeTo(1, 200);
+                await Task.Delay(700);
+                await message.TranslateTo(0, -25, 400, Easing.CubicOut);
+                await message.FadeTo(0, 350);
+            }
+            finally
+            {
+                GameCanvas.Children.Remove(message);
+            }
         }
 
         private void UpdateTripleShotCountdown()
