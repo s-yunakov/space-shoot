@@ -18,6 +18,7 @@
 
         private const int MaxBullets = 15;
         private const int MaxEnemies = 20;
+        private const int MaxLives = 5;
         private double canvasWidth;
         private double canvasHeight;
         private double lastPanX = 0;
@@ -165,23 +166,29 @@
             // Check collision with power-ups
             for (int i = powerUps.Count - 1; i >= 0; i--)
             {
-                if (CheckCollision(
-                        player.X,
-                        player.Y,
-                        player.Size,
-                        powerUps[i].X,
-                        powerUps[i].Y,
-                        powerUps[i].Size))
                 {
-                    GameCanvas.Children.Remove(powerUps[i].Visual);
+                    PowerUp powerUp = powerUps[i];
+
+                    GameCanvas.Children.Remove(powerUp.Visual);
                     powerUps.RemoveAt(i);
 
-                    tripleShotUntil = DateTime.Now.AddSeconds(
-                        TripleShotDurationSeconds);
+                    if (powerUp.Type == PowerUpType.TripleShot)
+                    {
+                        tripleShotUntil = DateTime.Now.AddSeconds(
+                            TripleShotDurationSeconds);
 
-                    lastDisplayedTripleSeconds = -1;
+                        lastDisplayedTripleSeconds = -1;
 
-                    UpdateWeapon();
+                        UpdateWeapon();
+                    }
+                    else if (powerUp.Type == PowerUpType.ExtraLife)
+                    {
+                        if (lives < MaxLives)
+                        {
+                            lives++;
+                        }
+                    }
+
                     UpdateUI();
                 }
             }
@@ -635,10 +642,18 @@
             double x = 20 + rand.NextDouble() * (canvasWidth - 40);
             double y = 20 + rand.NextDouble() * (canvasHeight - 40);
 
-            PowerUp powerUp = new PowerUp(
-                x,
-                y,
-                PowerUpType.TripleShot);
+            PowerUpType type;
+
+            if (lives < MaxLives && rand.Next(2) == 0)
+            {
+                type = PowerUpType.ExtraLife;
+            }
+            else
+            {
+                type = PowerUpType.TripleShot;
+            }
+
+            PowerUp powerUp = new PowerUp(x, y, type);
 
             powerUps.Add(powerUp);
             GameCanvas.Children.Add(powerUp.Visual);
