@@ -39,6 +39,19 @@ namespace SpaceShoot
                     BackgroundColor = Colors.Transparent
                 };
             }
+            else if (type == PowerUpType.Shield)
+            {
+                Visual = new Label
+                {
+                    Text = "🛡️",
+                    FontSize = 30,
+                    WidthRequest = Size,
+                    HeightRequest = Size,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    BackgroundColor = Colors.Transparent
+                };
+            }
             else
             {
                 Visual = new Image
