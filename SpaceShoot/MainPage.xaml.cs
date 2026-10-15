@@ -722,16 +722,19 @@
             double x = 20 + rand.NextDouble() * (canvasWidth - 40);
             double y = 20 + rand.NextDouble() * (canvasHeight - 40);
 
-            PowerUpType type;
+            var availableTypes = new List<PowerUpType>
+            {
+                PowerUpType.TripleShot,
+                PowerUpType.Shield
+            };
 
-            if (lives < MaxLives && rand.Next(2) == 0)
+            if (lives < MaxLives)
             {
-                type = PowerUpType.ExtraLife;
+                availableTypes.Add(PowerUpType.ExtraLife);
             }
-            else
-            {
-                type = PowerUpType.TripleShot;
-            }
+
+            PowerUpType type =
+                availableTypes[rand.Next(availableTypes.Count)];
 
             PowerUp powerUp = new PowerUp(x, y, type);
 
