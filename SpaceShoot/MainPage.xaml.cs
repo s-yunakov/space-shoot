@@ -28,6 +28,8 @@
         private DateTime tripleShotUntil = DateTime.MinValue;
         private const double TripleShotDurationSeconds = 10;
         private int lastDisplayedTripleSeconds = -1;
+        private DateTime shieldUntil = DateTime.MinValue;
+        private const double ShieldDurationSeconds = 5;
 
         public int Score
         {
@@ -112,6 +114,7 @@
             lives = 3;
             currentWeapon = WeaponType.Single;
             tripleShotUntil = DateTime.MinValue;
+            shieldUntil = DateTime.MinValue;
             playerInvulnerableUntil = DateTime.MinValue;
             enemySpawnTimer.Interval = TimeSpan.FromSeconds(2);
             enemies.Clear();
@@ -152,6 +155,12 @@
             }
 
             UpdateTripleShotCountdown();
+
+            if (shieldUntil != DateTime.MinValue &&
+                DateTime.Now >= shieldUntil)
+            {
+                shieldUntil = DateTime.MinValue;
+            }
 
             // Remove expired power-ups
             for (int i = powerUps.Count - 1; i >= 0; i--)
@@ -215,6 +224,17 @@
                                 Colors.Gold);
                         }
                     }
+                    else if (powerUp.Type == PowerUpType.Shield)
+                    {
+                        shieldUntil = DateTime.Now.AddSeconds(
+                            ShieldDurationSeconds);
+
+                        _ = ShowPowerUpMessage(
+                            "SHIELD ACTIVATED!",
+                            powerUp.X,
+                            powerUp.Y,
+                            Colors.DeepSkyBlue);
+                    }
 
                     UpdateUI();
                 }
@@ -252,6 +272,23 @@
                         enemies[i].Y - enemies[i].Size / 2,
                         enemies[i].Size,
                         enemies[i].Size));
+
+                // Shield destroys enemies on contact without damage
+                if (DateTime.Now < shieldUntil &&
+                    CheckCollision(
+                        player.X,
+                        player.Y,
+                        player.Size,
+                        enemies[i].X,
+                        enemies[i].Y,
+                        enemies[i].Size))
+                {
+                    var enemyVisual = enemies[i].Visual;
+                    enemies.RemoveAt(i);
+
+                    _ = AnimateEnemyHit(enemyVisual);
+                    continue;
+                }
 
                 // Check collision with player
                 if (DateTime.Now >= playerInvulnerableUntil &&
