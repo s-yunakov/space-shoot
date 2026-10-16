@@ -30,6 +30,7 @@
         private int lastDisplayedTripleSeconds = -1;
         private DateTime shieldUntil = DateTime.MinValue;
         private const double ShieldDurationSeconds = 5;
+        private Microsoft.Maui.Controls.Shapes.Ellipse shieldVisual;
 
         public int Score
         {
@@ -121,6 +122,7 @@
             bullets.Clear();
             powerUps.Clear();
             GameCanvas.Children.Clear();
+            shieldVisual = null;
             GameOverOverlay.IsVisible = false;
             StartButton.IsEnabled = false;
             gameTimer.Start();
@@ -161,6 +163,8 @@
             {
                 shieldUntil = DateTime.MinValue;
             }
+
+            UpdateShieldVisual();
 
             // Remove expired power-ups
             for (int i = powerUps.Count - 1; i >= 0; i--)
@@ -721,6 +725,50 @@
                 lastDisplayedTripleSeconds = secondsRemaining;
                 UpdateWeaponLabel();
             }
+        }
+
+        private void UpdateShieldVisual()
+        {
+            bool shieldActive =
+                shieldUntil != DateTime.MinValue &&
+                DateTime.Now < shieldUntil;
+
+            if (!shieldActive)
+            {
+                if (shieldVisual != null)
+                {
+                    GameCanvas.Children.Remove(shieldVisual);
+                    shieldVisual = null;
+                }
+
+                return;
+            }
+
+            if (player == null)
+                return;
+
+            if (shieldVisual == null)
+            {
+                shieldVisual = new Microsoft.Maui.Controls.Shapes.Ellipse
+                {
+                    Stroke = new SolidColorBrush(Colors.DeepSkyBlue),
+                    StrokeThickness = 3,
+                    Fill = new SolidColorBrush(Colors.Transparent),
+                    InputTransparent = true
+                };
+
+                GameCanvas.Children.Add(shieldVisual);
+            }
+
+            double diameter = player.Size + 20;
+
+            AbsoluteLayout.SetLayoutBounds(
+                shieldVisual,
+                new Rect(
+                    player.X - diameter / 2,
+                    player.Y - diameter / 2,
+                    diameter,
+                    diameter));
         }
 
         private void UpdateUI()
