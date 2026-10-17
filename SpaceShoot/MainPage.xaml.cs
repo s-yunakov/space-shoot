@@ -760,7 +760,13 @@
                 GameCanvas.Children.Add(shieldVisual);
             }
 
-            double diameter = player.Size + 20;
+            // Create a pulsing shield effect
+            double pulse = (Math.Sin(
+                DateTime.Now.TimeOfDay.TotalSeconds * 5) + 1) / 2;
+
+            double diameter = player.Size + 16 + pulse * 8;
+
+            shieldVisual.StrokeThickness = 2 + pulse * 2;
 
             AbsoluteLayout.SetLayoutBounds(
                 shieldVisual,
