@@ -579,6 +579,8 @@
             enemySpawnTimer?.Stop();
             powerUpSpawnTimer?.Stop();
 
+            GameOverHighScoreLabel.Text = $"High Score: {highScore}";
+
             GameOverOverlay.IsVisible = true;
             StartButton.IsEnabled = true;
         }
