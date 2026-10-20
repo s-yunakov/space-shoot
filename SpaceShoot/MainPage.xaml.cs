@@ -312,6 +312,8 @@
                     playerInvulnerableUntil =
                         DateTime.Now.AddSeconds(InvulnerabilitySeconds);
 
+                    _ = AnimatePlayerDamage();
+
                     continue;
                 }
 
@@ -559,6 +561,30 @@
         {
             await enemyVisual.FadeTo(0, 100);
             GameCanvas.Children.Remove(enemyVisual);
+        }
+
+        private async Task AnimatePlayerDamage()
+        {
+            if (player == null)
+                return;
+
+            for (int i = 0; i < 6; i++)
+            {
+                if (player == null || !isGameRunning)
+                    return;
+
+                player.Visual.Opacity = 0.2;
+                await Task.Delay(125);
+
+                if (player == null || !isGameRunning)
+                    return;
+
+                player.Visual.Opacity = 1.0;
+                await Task.Delay(125);
+            }
+
+            if (player != null)
+                player.Visual.Opacity = 1.0;
         }
 
         private void LoseLife()
