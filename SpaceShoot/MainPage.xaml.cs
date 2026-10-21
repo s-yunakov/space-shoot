@@ -559,8 +559,20 @@
 
         private async Task AnimateEnemyHit(View enemyVisual)
         {
-            await enemyVisual.FadeTo(0, 100);
-            GameCanvas.Children.Remove(enemyVisual);
+            if (enemyVisual == null)
+                return;
+
+            try
+            {
+                await Task.WhenAll(
+                    enemyVisual.ScaleTo(1.4, 120, Easing.CubicOut),
+                    enemyVisual.FadeTo(0, 180, Easing.CubicIn)
+                );
+            }
+            finally
+            {
+                GameCanvas.Children.Remove(enemyVisual);
+            }
         }
 
         private async Task AnimatePlayerDamage()
