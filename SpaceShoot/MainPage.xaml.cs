@@ -336,16 +336,20 @@
                         if (enemies[i].Health <= 0)
                         {
                             var enemyVisual = enemies[i].Visual;
+                            double explosionX = enemies[i].X;
+                            double explosionY = enemies[i].Y;
+                            double explosionSize = enemies[i].Size;
                             int scoreValue = enemies[i].ScoreValue;
 
                             enemies.RemoveAt(i);
+
+                            _ = CreateExplosion(explosionX, explosionY, explosionSize);
+                            _ = AnimateEnemyHit(enemyVisual);
 
                             Score += scoreValue;
                             UpdateDifficulty();
                             UpdateWeapon();
                             UpdateUI();
-
-                            _ = AnimateEnemyHit(enemyVisual);
 
                             break;
                         }
@@ -572,6 +576,61 @@
             finally
             {
                 GameCanvas.Children.Remove(enemyVisual);
+            }
+        }
+
+        private async Task CreateExplosion(double x, double y, double enemySize)
+        {
+            const int particleCount = 10;
+            var random = new Random();
+
+            var animations = new List<Task>();
+
+            for (int i = 0; i < particleCount; i++)
+            {
+                double angle = 2 * Math.PI * i / particleCount;
+                double distance = enemySize * (0.8 + random.NextDouble());
+
+                double endX = x + Math.Cos(angle) * distance;
+                double endY = y + Math.Sin(angle) * distance;
+
+                var particle = new BoxView
+                {
+                    Color = i % 2 == 0 ? Colors.Orange : Colors.Yellow,
+                    WidthRequest = 6,
+                    HeightRequest = 6,
+                    CornerRadius = 3,
+                    InputTransparent = true,
+                    ZIndex = 100
+                };
+
+                GameCanvas.Children.Add(particle);
+
+                AbsoluteLayout.SetLayoutBounds(
+                    particle,
+                    new Rect(x - 3, y - 3, 6, 6));
+
+                animations.Add(AnimateExplosionParticle(
+                    particle, endX - x, endY - y));
+            }
+
+            await Task.WhenAll(animations);
+        }
+
+        private async Task AnimateExplosionParticle(
+            View particle, double deltaX, double deltaY)
+        {
+            try
+            {
+                await Task.WhenAll(
+                    particle.TranslateTo(deltaX, deltaY, 350, Easing.CubicOut),
+                    particle.FadeTo(0, 350, Easing.CubicIn),
+                    particle.ScaleTo(0.2, 350, Easing.CubicIn)
+                );
+            }
+            finally
+            {
+                GameCanvas.Children.Remove(particle);
             }
         }
 
