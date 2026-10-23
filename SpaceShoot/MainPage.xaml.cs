@@ -279,18 +279,28 @@
 
                 // Shield destroys enemies on contact without damage
                 if (DateTime.Now < shieldUntil &&
-                    CheckCollision(
-                        player.X,
-                        player.Y,
-                        player.Size,
-                        enemies[i].X,
-                        enemies[i].Y,
-                        enemies[i].Size))
+                                    CheckCollision(
+                                        player.X,
+                                        player.Y,
+                                        player.Size,
+                                        enemies[i].X,
+                                        enemies[i].Y,
+                                        enemies[i].Size))
                 {
                     var enemyVisual = enemies[i].Visual;
+                    double explosionX = enemies[i].X;
+                    double explosionY = enemies[i].Y;
+                    double explosionSize = enemies[i].Size;
+
                     enemies.RemoveAt(i);
 
+                    _ = CreateExplosion(
+                        explosionX,
+                        explosionY,
+                        explosionSize);
+
                     _ = AnimateEnemyHit(enemyVisual);
+
                     continue;
                 }
 
