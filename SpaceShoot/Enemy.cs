@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace SpaceShoot
 {
+    public enum EnemyType
+    {
+        Normal,
+        Fast,
+        Armored
+    }
     public class Enemy
     {
+        public EnemyType Type { get; private set; }
         public double X { get; private set; }
         public double Y { get; private set; }
         public double Size { get; private set; } = 30;
@@ -31,33 +38,39 @@ namespace SpaceShoot
         private DateTime lastDirectionChange;
         private int directionChangeInterval = 2000; // Change direction every 2 seconds
 
+
         public Enemy(double x, double y)
         {
             X = x;
             Y = y;
 
-            speed = 1.5 + random.NextDouble() * 2.0;
+            Type = (EnemyType)random.Next(3);
+
+            switch (Type)
+            {
+                case EnemyType.Normal:
+                    Size = 30;
+                    speed = 1.5 + random.NextDouble();
+                    Health = 2;
+                    ScoreValue = 10;
+                    break;
+
+                case EnemyType.Fast:
+                    Size = 24;
+                    speed = 3.0 + random.NextDouble();
+                    Health = 1;
+                    ScoreValue = 20;
+                    break;
+
+                case EnemyType.Armored:
+                    Size = 38;
+                    speed = 1.0 + random.NextDouble() * 0.5;
+                    Health = 4;
+                    ScoreValue = 40;
+                    break;
+            }
+
             string sprite = enemySprites[random.Next(enemySprites.Length)];
-
-            Health = sprite switch
-            {
-                "alien1.png" => 1,
-                "alien2.png" => 1,
-                "alien3.png" => 2,
-                "ufo.png" => 2,
-                "monster.png" => 3,
-                _ => 1
-            };
-
-            ScoreValue = sprite switch
-            {
-                "alien1.png" => 10,
-                "alien2.png" => 10,
-                "alien3.png" => 20,
-                "ufo.png" => 25,
-                "monster.png" => 50,
-                _ => 10
-            };
 
             Visual = new Image
             {
@@ -67,6 +80,7 @@ namespace SpaceShoot
                 Aspect = Aspect.AspectFit
             };
         }
+
 
         public void Update(double screenWidth, double screenHeight)
         {
