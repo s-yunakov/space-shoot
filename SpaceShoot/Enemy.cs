@@ -70,7 +70,30 @@ namespace SpaceShoot
                     break;
             }
 
-            string sprite = enemySprites[random.Next(enemySprites.Length)];
+            string sprite;
+
+            switch (Type)
+            {
+                case EnemyType.Normal:
+                    sprite = random.Next(2) == 0
+                        ? "alien1.png"
+                        : "alien2.png";
+                    break;
+
+                case EnemyType.Fast:
+                    sprite = "alien3.png";
+                    break;
+
+                case EnemyType.Armored:
+                    sprite = random.Next(2) == 0
+                        ? "monster.png"
+                        : "ufo.png";
+                    break;
+
+                default:
+                    sprite = "alien1.png";
+                    break;
+            }
 
             Visual = new Image
             {
