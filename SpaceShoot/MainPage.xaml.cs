@@ -343,7 +343,11 @@
 
                         enemies[i].Health--;
 
-                        if (enemies[i].Health <= 0)
+                        if (enemies[i].Health > 0)
+                        {
+                            _ = AnimateEnemyDamage(enemies[i].Visual);
+                        }
+                        else
                         {
                             var enemyVisual = enemies[i].Visual;
                             double explosionX = enemies[i].X;
@@ -586,6 +590,24 @@
             finally
             {
                 GameCanvas.Children.Remove(enemyVisual);
+            }
+        }
+
+        private async Task AnimateEnemyDamage(View enemyVisual)
+        {
+            if (enemyVisual == null)
+                return;
+
+            try
+            {
+                enemyVisual.Opacity = 0.4;
+                await Task.Delay(100);
+
+                enemyVisual.Opacity = 1.0;
+            }
+            catch (Exception)
+            {
+                // Ignore animation errors if the visual is removed.
             }
         }
 
