@@ -20,6 +20,7 @@ namespace SpaceShoot
         public double Size { get; private set; } = 30;
         public Image Visual { get; private set; }
         public int Health { get; set; }
+        public int MaxHealth { get; private set; }
         public int ScoreValue { get; private set; }
 
         private readonly string[] enemySprites =
@@ -52,6 +53,7 @@ namespace SpaceShoot
                     Size = 30;
                     speed = 1.5 + random.NextDouble();
                     Health = 2;
+                    MaxHealth = 2;
                     ScoreValue = 10;
                     break;
 
@@ -59,6 +61,7 @@ namespace SpaceShoot
                     Size = 24;
                     speed = 3.0 + random.NextDouble();
                     Health = 1;
+                    MaxHealth = 1;
                     ScoreValue = 20;
                     break;
 
@@ -66,6 +69,7 @@ namespace SpaceShoot
                     Size = 38;
                     speed = 1.0 + random.NextDouble() * 0.5;
                     Health = 4;
+                    MaxHealth = 4;
                     ScoreValue = 40;
                     break;
             }
