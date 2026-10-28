@@ -6,6 +6,7 @@
         private List<Enemy> enemies = new();
         private List<Bullet> bullets = new();
         private List<PowerUp> powerUps = new();
+        private Dictionary<Enemy, BoxView> enemyHealthBars = new();
         private IDispatcherTimer gameTimer;
         private IDispatcherTimer enemySpawnTimer;
         private IDispatcherTimer powerUpSpawnTimer;
@@ -415,8 +416,36 @@
             enemy = new Enemy(x, y);
             enemies.Add(enemy);
             GameCanvas.Children.Add(enemy.Visual);
-            AbsoluteLayout.SetLayoutBounds(enemy.Visual,
-                new Rect(enemy.X - enemy.Size / 2, enemy.Y - enemy.Size / 2, enemy.Size, enemy.Size));
+            AbsoluteLayout.SetLayoutBounds(
+                enemy.Visual,
+                new Rect(
+                    enemy.X - enemy.Size / 2,
+                    enemy.Y - enemy.Size / 2,
+                    enemy.Size,
+                    enemy.Size));
+
+            if (enemy.Type == EnemyType.Armored)
+            {
+                var healthBar = new BoxView
+                {
+                    Color = Colors.LimeGreen,
+                    HeightRequest = 4,
+                    WidthRequest = enemy.Size,
+                    InputTransparent = true,
+                    ZIndex = 10
+                };
+
+                enemyHealthBars[enemy] = healthBar;
+                GameCanvas.Children.Add(healthBar);
+
+                AbsoluteLayout.SetLayoutBounds(
+                    healthBar,
+                    new Rect(
+                        enemy.X - enemy.Size / 2,
+                        enemy.Y - enemy.Size / 2 - 8,
+                        enemy.Size,
+                        4));
+            }
         }
 
         private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
