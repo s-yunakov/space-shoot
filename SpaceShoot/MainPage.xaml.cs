@@ -278,6 +278,17 @@
                         enemies[i].Size,
                         enemies[i].Size));
 
+                if (enemyHealthBars.TryGetValue(enemies[i], out var healthBar))
+                {
+                    AbsoluteLayout.SetLayoutBounds(
+                        healthBar,
+                        new Rect(
+                            enemies[i].X - enemies[i].Size / 2,
+                            enemies[i].Y - enemies[i].Size / 2 - 8,
+                            enemies[i].Size,
+                            4));
+                }
+
                 // Shield destroys enemies on contact without damage
                 if (DateTime.Now < shieldUntil &&
                                     CheckCollision(
