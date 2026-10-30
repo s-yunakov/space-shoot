@@ -355,6 +355,22 @@
 
                         enemies[i].Health--;
 
+                        if (enemyHealthBars.TryGetValue(enemies[i], out var currentHealthBar))
+                        {
+                            double healthPercent =
+                                (double)enemies[i].Health / enemies[i].MaxHealth;
+
+                            double barWidth = enemies[i].Size * healthPercent;
+
+                            AbsoluteLayout.SetLayoutBounds(
+                                currentHealthBar,
+                                new Rect(
+                                    enemies[i].X - enemies[i].Size / 2,
+                                    enemies[i].Y - enemies[i].Size / 2 - 8,
+                                    barWidth,
+                                    4));
+                        }
+
                         if (enemies[i].Health > 0)
                         {
                             _ = AnimateEnemyDamage(enemies[i].Visual);
@@ -366,6 +382,12 @@
                             double explosionY = enemies[i].Y;
                             double explosionSize = enemies[i].Size;
                             int scoreValue = enemies[i].ScoreValue;
+
+                            if (enemyHealthBars.TryGetValue(enemies[i], out var barToRemove))
+                            {
+                                GameCanvas.Children.Remove(barToRemove);
+                                enemyHealthBars.Remove(enemies[i]);
+                            }
 
                             enemies.RemoveAt(i);
 
