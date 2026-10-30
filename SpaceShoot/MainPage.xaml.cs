@@ -362,6 +362,19 @@
 
                             double barWidth = enemies[i].Size * healthPercent;
 
+                            if (healthPercent > 0.5)
+                            {
+                                currentHealthBar.Color = Colors.LimeGreen;
+                            }
+                            else if (healthPercent > 0.25)
+                            {
+                                currentHealthBar.Color = Colors.Yellow;
+                            }
+                            else
+                            {
+                                currentHealthBar.Color = Colors.Red;
+                            }
+
                             AbsoluteLayout.SetLayoutBounds(
                                 currentHealthBar,
                                 new Rect(
