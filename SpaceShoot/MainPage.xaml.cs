@@ -478,11 +478,13 @@
                     HeightRequest = 4,
                     WidthRequest = enemy.Size,
                     InputTransparent = true,
-                    ZIndex = 10
+                    ZIndex = 10,
+                    Opacity = 0
                 };
 
                 enemyHealthBars[enemy] = healthBar;
                 GameCanvas.Children.Add(healthBar);
+                _ = healthBar.FadeTo(1, 300);
 
                 AbsoluteLayout.SetLayoutBounds(
                     healthBar,
