@@ -462,6 +462,12 @@
             enemy = new Enemy(x, y);
             enemies.Add(enemy);
             GameCanvas.Children.Add(enemy.Visual);
+
+            if (enemy.Type == EnemyType.Fast)
+            {
+                _ = AnimateFastEnemy(enemy.Visual);
+            }
+
             AbsoluteLayout.SetLayoutBounds(
                 enemy.Visual,
                 new Rect(
@@ -685,6 +691,23 @@
             catch (Exception)
             {
                 // Ignore animation errors if the visual is removed.
+            }
+        }
+
+        private async Task AnimateFastEnemy(View enemyVisual)
+        {
+            try
+            {
+                while (isGameRunning &&
+                       GameCanvas.Children.Contains(enemyVisual))
+                {
+                    await enemyVisual.FadeTo(0.4, 300);
+                    await enemyVisual.FadeTo(0.9, 300);
+                }
+            }
+            catch (Exception)
+            {
+                // Ignore animation errors if the enemy is removed.
             }
         }
 

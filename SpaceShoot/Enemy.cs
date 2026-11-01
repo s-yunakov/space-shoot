@@ -106,6 +106,11 @@ namespace SpaceShoot
                 HeightRequest = Size,
                 Aspect = Aspect.AspectFit
             };
+
+            if (Type == EnemyType.Fast)
+            {
+                Visual.Opacity = 0.75;
+            }
         }
 
 
