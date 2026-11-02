@@ -711,6 +711,46 @@
             }
         }
 
+        private async Task CreateFastEnemyTrail(Enemy enemy)
+        {
+            try
+            {
+                while (isGameRunning &&
+                       GameCanvas.Children.Contains(enemy.Visual))
+                {
+                    var trail = new BoxView
+                    {
+                        Color = Colors.LightBlue,
+                        WidthRequest = enemy.Size * 0.5,
+                        HeightRequest = 5,
+                        Opacity = 0.5,
+                        Rotation = 0,
+                        InputTransparent = true,
+                        ZIndex = -1
+                    };
+
+                    GameCanvas.Children.Add(trail);
+
+                    AbsoluteLayout.SetLayoutBounds(
+                        trail,
+                        new Rect(
+                            enemy.X - enemy.Size * 0.25,
+                            enemy.Y + enemy.Size * 0.35,
+                            enemy.Size * 0.5,
+                            5));
+
+                    await trail.FadeTo(0, 250);
+                    GameCanvas.Children.Remove(trail);
+
+                    await Task.Delay(60);
+                }
+            }
+            catch (Exception)
+            {
+                // Ignore animation errors.
+            }
+        }
+
         private async Task CreateExplosion(double x, double y, double enemySize)
         {
             const int particleCount = 10;
