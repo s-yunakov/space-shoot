@@ -466,6 +466,7 @@
             if (enemy.Type == EnemyType.Fast)
             {
                 _ = AnimateFastEnemy(enemy.Visual);
+                _ = CreateFastEnemyTrail(enemy);
             }
 
             AbsoluteLayout.SetLayoutBounds(
