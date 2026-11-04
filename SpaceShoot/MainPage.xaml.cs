@@ -15,6 +15,7 @@
         private int highScore = 0;
         private int lives = 3;
         private bool isGameRunning = false;
+        private bool isGamePaused = false;
         private WeaponType currentWeapon = WeaponType.Single;
 
         private const int MaxBullets = 15;
@@ -144,6 +145,9 @@
         private void OnGameTick(object sender, EventArgs e)
         {
             if (!isGameRunning)
+                return;
+
+            if (isGamePaused)
                 return;
 
             // Check if temporary Triple Shot has expired
