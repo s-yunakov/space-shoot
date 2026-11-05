@@ -1076,6 +1076,16 @@
             SpawnPowerUp();
         }
 
+        private void OnPauseClicked(object sender, EventArgs e)
+        {
+            if (!isGameRunning)
+                return;
+
+            isGamePaused = !isGamePaused;
+
+            PauseButton.Text = isGamePaused ? "RESUME" : "PAUSE";
+        }
+
         private void SpawnPowerUp()
         {
             if (powerUps.Count >= 1)
