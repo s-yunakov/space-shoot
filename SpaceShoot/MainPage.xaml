@@ -15,6 +15,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -45,8 +46,18 @@
                     WidthRequest="100"
                     Clicked="OnStartClicked"/>
 
+            <Button x:Name="PauseButton"
+                    Grid.Column="2"
+                    Text="PAUSE"
+                    BackgroundColor="Orange"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    WidthRequest="90"
+                    Clicked="OnPauseClicked"
+                    IsVisible="False"/>
+
             <Label x:Name="LivesLabel" 
-                   Grid.Column="2"
+                   Grid.Column="3"
                    Text="Lives: 3" 
                    TextColor="Red" 
                    FontSize="20" 
