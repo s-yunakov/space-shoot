@@ -101,6 +101,10 @@
         private void OnStartClicked(object sender, EventArgs e)
         {
             StartGame();
+
+            isGamePaused = false;
+            PauseButton.Text = "PAUSE";
+            PauseButton.IsVisible = true;
         }
 
         private void OnPlayAgainClicked(object sender, EventArgs e)
@@ -849,6 +853,9 @@
         private void EndGame()
         {
             isGameRunning = false;
+            isGamePaused = false;
+            PauseButton.IsVisible = false;
+            PauseButton.Text = "PAUSE";
             gameTimer?.Stop();
             enemySpawnTimer?.Stop();
             powerUpSpawnTimer?.Stop();
