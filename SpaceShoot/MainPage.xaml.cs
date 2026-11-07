@@ -1091,6 +1091,19 @@
             isGamePaused = !isGamePaused;
 
             PauseButton.Text = isGamePaused ? "RESUME" : "PAUSE";
+
+            if (isGamePaused)
+            {
+                gameTimer?.Stop();
+                enemySpawnTimer?.Stop();
+                powerUpSpawnTimer?.Stop();
+            }
+            else
+            {
+                gameTimer?.Start();
+                enemySpawnTimer?.Start();
+                powerUpSpawnTimer?.Start();
+            }
         }
 
         private void SpawnPowerUp()
