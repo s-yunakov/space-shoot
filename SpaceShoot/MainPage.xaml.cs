@@ -737,6 +737,12 @@
                 while (isGameRunning &&
                        GameCanvas.Children.Contains(enemy.Visual))
                 {
+                    if (isGamePaused)
+                    {
+                        await Task.Delay(100);
+                        continue;
+                    }
+
                     var trail = new BoxView
                     {
                         Color = Colors.LightBlue,
