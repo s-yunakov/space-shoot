@@ -710,7 +710,17 @@
                 while (isGameRunning &&
                        GameCanvas.Children.Contains(enemyVisual))
                 {
+                    if (isGamePaused)
+                    {
+                        await Task.Delay(100);
+                        continue;
+                    }
+
                     await enemyVisual.FadeTo(0.4, 300);
+
+                    if (isGamePaused)
+                        continue;
+
                     await enemyVisual.FadeTo(0.9, 300);
                 }
             }
