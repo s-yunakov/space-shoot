@@ -25,6 +25,8 @@
         private double canvasHeight;
         private double lastPanX = 0;
         private double lastPanY = 0;
+        private double pausedTripleShotSeconds = 0;
+        private double pausedShieldSeconds = 0;
         private DateTime playerInvulnerableUntil = DateTime.MinValue;
         private const double InvulnerabilitySeconds = 1.5;
         private DateTime tripleShotUntil = DateTime.MinValue;
