@@ -1112,6 +1112,16 @@
 
             if (isGamePaused)
             {
+                // Save remaining Triple Shot time
+                pausedTripleShotSeconds = tripleShotUntil == DateTime.MinValue
+                    ? 0
+                    : Math.Max(0, (tripleShotUntil - DateTime.Now).TotalSeconds);
+
+                // Save remaining Shield time
+                pausedShieldSeconds = shieldUntil == DateTime.MinValue
+                    ? 0
+                    : Math.Max(0, (shieldUntil - DateTime.Now).TotalSeconds);
+
                 gameTimer?.Stop();
                 enemySpawnTimer?.Stop();
                 powerUpSpawnTimer?.Stop();
