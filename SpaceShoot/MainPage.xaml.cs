@@ -1128,6 +1128,30 @@
             }
             else
             {
+                // Restore remaining Triple Shot time
+                if (pausedTripleShotSeconds > 0)
+                {
+                    tripleShotUntil = DateTime.Now.AddSeconds(pausedTripleShotSeconds);
+                }
+                else
+                {
+                    tripleShotUntil = DateTime.MinValue;
+                }
+
+                // Restore remaining Shield time
+                if (pausedShieldSeconds > 0)
+                {
+                    shieldUntil = DateTime.Now.AddSeconds(pausedShieldSeconds);
+                }
+                else
+                {
+                    shieldUntil = DateTime.MinValue;
+                }
+
+                lastDisplayedTripleSeconds = -1;
+                UpdateWeapon();
+                UpdateUI();
+
                 gameTimer?.Start();
                 enemySpawnTimer?.Start();
                 powerUpSpawnTimer?.Start();
