@@ -515,7 +515,7 @@
 
         private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
-            if (!isGameRunning)
+            if (!isGameRunning || isGamePaused)
                 return;
 
             switch (e.StatusType)
@@ -560,7 +560,7 @@
 
         private void OnCanvasTapped(object sender, TappedEventArgs e)
         {
-            if (!isGameRunning)
+            if (!isGameRunning || isGamePaused)
                 return;
 
             // Tap to shoot in direction of tap
