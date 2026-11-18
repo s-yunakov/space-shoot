@@ -105,6 +105,67 @@
                        Clicked="OnPlayAgainClicked"/>
             </VerticalStackLayout>
         </Grid>
+        <!-- Pause Menu Overlay -->
+        <Grid x:Name="PauseMenuOverlay"
+              Grid.RowSpan="2"
+              BackgroundColor="#DD000014"
+              IsVisible="False"
+              ZIndex="10">
+
+            <Border
+                BackgroundColor="#17172B"
+                Stroke="#00BFFF"
+                StrokeThickness="2"
+                Padding="30"
+                WidthRequest="300"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout
+                    Spacing="20"
+                    HorizontalOptions="Center">
+
+                    <Label
+                        Text="GAME PAUSED"
+                        TextColor="#00BFFF"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"/>
+
+                    <Label
+                        Text="Take a break, pilot!"
+                        TextColor="White"
+                        FontSize="15"
+                        HorizontalOptions="Center"/>
+
+                    <Button
+                        Text="RESUME"
+                        BackgroundColor="#00FFAA"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        WidthRequest="220"/>
+
+                    <Button
+                        Text="RESTART"
+                        BackgroundColor="#2979FF"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        WidthRequest="220"/>
+
+                    <Button
+                        Text="MAIN MENU"
+                        BackgroundColor="#7B2CBF"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        WidthRequest="220"/>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
     </Grid>
 
 </ContentPage>
