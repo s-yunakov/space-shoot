@@ -1107,6 +1107,7 @@
                 return;
 
             isGamePaused = !isGamePaused;
+            PauseMenuOverlay.IsVisible = isGamePaused;
 
             PauseButton.Text = isGamePaused ? "RESUME" : "PAUSE";
 

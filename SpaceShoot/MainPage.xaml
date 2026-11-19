@@ -147,7 +147,8 @@
                         BackgroundColor="#00FFAA"
                         TextColor="Black"
                         FontAttributes="Bold"
-                        WidthRequest="220"/>
+                        WidthRequest="220"
+                        Clicked="OnPauseClicked"/>
 
                     <Button
                         Text="RESTART"
