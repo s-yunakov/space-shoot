@@ -155,7 +155,8 @@
                         BackgroundColor="#2979FF"
                         TextColor="White"
                         FontAttributes="Bold"
-                        WidthRequest="220"/>
+                        WidthRequest="220"
+                        Clicked="OnRestartClicked"/>
 
                     <Button
                         Text="MAIN MENU"

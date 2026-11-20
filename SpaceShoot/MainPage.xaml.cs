@@ -1159,6 +1159,21 @@
             }
         }
 
+        private void OnRestartClicked(object sender, EventArgs e)
+        {
+            isGameRunning = false;
+            isGamePaused = false;
+
+            gameTimer?.Stop();
+            enemySpawnTimer?.Stop();
+            powerUpSpawnTimer?.Stop();
+
+            PauseMenuOverlay.IsVisible = false;
+            PauseButton.Text = "PAUSE";
+
+            StartGame();
+        }
+
         private void SpawnPowerUp()
         {
             if (powerUps.Count >= 1)
