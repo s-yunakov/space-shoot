@@ -163,7 +163,8 @@
                         BackgroundColor="#7B2CBF"
                         TextColor="White"
                         FontAttributes="Bold"
-                        WidthRequest="220"/>
+                        WidthRequest="220"
+                        Clicked="OnMainMenuClicked"/>
 
                 </VerticalStackLayout>
             </Border>
