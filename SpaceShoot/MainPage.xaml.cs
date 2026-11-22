@@ -1183,6 +1183,14 @@
             enemySpawnTimer?.Stop();
             powerUpSpawnTimer?.Stop();
 
+            enemies.Clear();
+            bullets.Clear();
+            powerUps.Clear();
+            enemyHealthBars.Clear();
+
+            GameCanvas.Children.Clear();
+            shieldVisual = null;
+
             PauseMenuOverlay.IsVisible = false;
             GameOverOverlay.IsVisible = false;
 
@@ -1190,6 +1198,16 @@
             PauseButton.Text = "PAUSE";
 
             StartButton.IsEnabled = true;
+
+            score = 0;
+            lives = 3;
+            currentWeapon = WeaponType.Single;
+
+            tripleShotUntil = DateTime.MinValue;
+            shieldUntil = DateTime.MinValue;
+            playerInvulnerableUntil = DateTime.MinValue;
+
+            UpdateUI();
         }
 
         private void SpawnPowerUp()
