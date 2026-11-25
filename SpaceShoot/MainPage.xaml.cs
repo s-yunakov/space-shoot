@@ -1107,7 +1107,17 @@
                 return;
 
             isGamePaused = !isGamePaused;
-            PauseMenuOverlay.IsVisible = isGamePaused;
+
+            if (isGamePaused)
+            {
+                PauseMenuOverlay.Opacity = 0;
+                PauseMenuOverlay.IsVisible = true;
+                _ = PauseMenuOverlay.FadeTo(1, 250);
+            }
+            else
+            {
+                PauseMenuOverlay.IsVisible = false;
+            }
 
             if (isGamePaused)
             {
