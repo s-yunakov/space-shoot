@@ -1111,8 +1111,11 @@
             if (isGamePaused)
             {
                 PauseMenuOverlay.Opacity = 0;
+                PauseMenuOverlay.Scale = 0.9;
                 PauseMenuOverlay.IsVisible = true;
-                _ = PauseMenuOverlay.FadeTo(1, 250);
+                _ = Task.WhenAll(
+                    PauseMenuOverlay.FadeTo(1, 250),
+                    PauseMenuOverlay.ScaleTo(1, 250));
             }
             else
             {
