@@ -396,7 +396,10 @@
 
                         if (enemies[i].Health > 0)
                         {
-                            _ = AnimateEnemyDamage(enemies[i].Visual);
+                            if (enemies[i].Type != EnemyType.Fast)
+                            {
+                                _ = AnimateEnemyDamage(enemies[i].Visual);
+                            }
                         }
                         else
                         {
@@ -674,6 +677,8 @@
             if (enemyVisual == null)
                 return;
 
+            enemyVisual.CancelAnimations();
+
             try
             {
                 await Task.WhenAll(
@@ -710,7 +715,7 @@
             try
             {
                 while (isGameRunning &&
-                       GameCanvas.Children.Contains(enemyVisual))
+                       enemies.Any(enemy => enemy.Visual == enemyVisual))
                 {
                     if (isGamePaused)
                     {
